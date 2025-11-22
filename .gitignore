@@ -1,0 +1,225 @@
+# ================================================================
+# WEBSTORE GITHUB - GITIGNORE CONFIGURATION
+# ================================================================
+# This file prevents sensitive data and unnecessary files from 
+# being uploaded to GitHub
+
+# ================================================================
+# 1. ENVIRONMENT & SECRETS - NEVER UPLOAD THESE!
+# ================================================================
+.env
+.env.local
+.env.production
+*.env
+**/chatbot_backend/.env
+config/secrets.json
+
+# ================================================================
+# 2. API KEYS & CREDENTIALS (Extra Protection)
+# ================================================================
+**/GEMINI_API_KEY*
+**/API_KEY*
+credentials.json
+secrets.py
+
+# ================================================================
+# 3. DATABASE FILES - DO NOT UPLOAD
+# ================================================================
+*.sql
+*.db
+*.sqlite
+*.sqlite3
+eshop.sql
+backup_*.sql
+database_dumps/
+
+# ================================================================
+# 4. NODE.JS DEPENDENCIES
+# ================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ================================================================
+# 5. PYTHON DEPENDENCIES & CACHE
+# ================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ================================================================
+# 6. VIRTUAL ENVIRONMENTS
+# ================================================================
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+chatbot_env/
+
+# ================================================================
+# 7. VECTOR DATABASE & AI MODEL CACHE
+# ================================================================
+vector_db/
+*.faiss
+*.index
+chromadb/
+chroma_db/
+.chroma/
+models/
+*.bin
+*.pt
+*.pth
+*.onnx
+*.h5
+
+# ================================================================
+# 8. UPLOADED FILES & MEDIA
+# ================================================================
+uploads/
+temp/
+tmp/
+*.tmp
+
+# ================================================================
+# 9. LOGS & DEBUG FILES
+# ================================================================
+*.log
+logs/
+*.log.*
+debug.log
+error.log
+
+# ================================================================
+# 10. OS-SPECIFIC FILES
+# ================================================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# ================================================================
+# 11. IDE & EDITOR FILES
+# ================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ================================================================
+# 12. TEST & TEMPORARY FILES
+# ================================================================
+test_*.py
+*_test.py
+demo_*.py
+temp_*.py
+scratch.py
+debug_*.py
+test_*.js
+
+# ================================================================
+# 13. DOCUMENTATION THAT SHOULDN'T BE PUBLIC
+# ================================================================
+*.pdf
+REMOVAL_SUMMARY.md
+BLOB_IMPLEMENTATION_GUIDE.md
+IMAGE_SEARCH_FIM.md
+TELEGRAM_QUICK_SETUP.md
+WHATSAPP_SETUP.md
+PROJECT_REPORT.md
+WebStore_AI_Chatbot_Project_Report.md
+VOICE_FEATURE.md
+DEMO_SCREENSHOTS.md
+GITHUB_CHECKLIST.md
+
+# ================================================================
+# 14. BACKUP FILES
+# ================================================================
+*.bak
+*.backup
+*_backup.*
+backup/
+
+# ================================================================
+# 15. COMPILED & BINARY FILES
+# ================================================================
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.pyc
+
+# ================================================================
+# 16. SYSTEM FILES
+# ================================================================
+.cache/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.coverage
+htmlcov/
+
+# ================================================================
+# EXCEPTIONS - FILES TO INCLUDE
+# ================================================================
+# Keep example environment files
+!.env.example
+!.env.template
+!chatbot_backend/.env.example
+
+# Keep requirements files
+!requirements.txt
+!package.json
+
+# Keep documentation
+!README.md
+!LICENSE
+
+# Keep SQL schema (without data)
+!schema.sql
+!database_schema.sql
+!database_setup.sql

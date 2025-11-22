@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Blog</title>
+    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <script src="NAVBAR.JS" defer></script>
+    <script src="footer.js" defer></script>
+    <style>
+        #single-blog {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.blog-header h1 {
+    font-size: 2em;
+    color: #333;
+}
+
+.blog-header p {
+    color: #777;
+}
+
+.blog-image img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.blog-content p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-top: 20px;
+    text-align: justify;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+        <script src="chatbot.js" defer></script>
+    </head>
+
+<body>
+
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Blog Content Section -->
+    <section id="single-blog">
+        <div class="container">
+            <div class="blog-header">
+                <h1 id="blog-title"></h1>
+                <p id="blog-author"></p>
+                <p id="blog-date"></p>
+            </div>
+            <div class="blog-image">
+                <img id="blog-image" src="" alt="Blog Image">
+            </div>
+            <div class="blog-content">
+                <p id="blog-content"></p>
+            </div>
+            <a href="blog.html" class="back-btn">← Back to Blog</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadSingleBlog() {
+    try {
+        // Get blog ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const blogId = urlParams.get('id');
+
+        if (!blogId) {
+            document.getElementById('single-blog').innerHTML = "<h2>Blog Not Found</h2>";
+            return;
+        }
+
+        // Fetch and parse XML
+        const response = await fetch('blog.xml');
+        const text = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, "application/xml");
+
+        // Find the correct blog post
+        const blogs = xml.getElementsByTagName("blog");
+        let selectedBlog = null;
+
+        Array.from(blogs).forEach(blog => {
+            if (blog.getAttribute("id") === blogId) {
+                selectedBlog = blog;
+            }
+        });
+
+        if (!selectedBlog) {
+            document.getElementById('single-blog').innerHTML = "<h2>Blog Not Found</h2>";
+            return;
+        }
+
+        // Extract blog details
+        const title = selectedBlog.getElementsByTagName("title")[0].textContent;
+        const author = selectedBlog.getElementsByTagName("author")[0]?.textContent || "Unknown Author";
+        const date = selectedBlog.getElementsByTagName("date")[0]?.textContent || "No Date";
+        const image = selectedBlog.getElementsByTagName("image")[0]?.textContent || "img/default.jpg";
+        const content = selectedBlog.getElementsByTagName("content")[0]?.textContent || "No Content";
+
+        // Insert blog data into the page
+        document.getElementById("blog-title").textContent = title;
+        document.getElementById("blog-author").textContent = `By ${author}`;
+        document.getElementById("blog-date").textContent = date;
+        document.getElementById("blog-image").src = image;
+        document.getElementById("blog-content").textContent = content;
+    } catch (error) {
+        console.error("Error fetching blog data:", error);
+    }
+}
+
+// Load blog on page load
+document.addEventListener("DOMContentLoaded", loadSingleBlog);
+
+    </script>
+
+</body>
+
+</html>

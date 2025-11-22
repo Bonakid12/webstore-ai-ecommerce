@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Us</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+        <script src="NAVBAR.JS" defer></script>
+        <script src="newsletter.js" defer></script>
+        <script src="footer.js"></script>
+        <script src="customer-chatbot.js" defer></script>
+    </head>
+
+    <body>
+        <div id="navbar-container"></div>
+<section id="page-header" class="about-header">                                                                                                                                                                                                                                                                                                                                                                                                       
+
+<h2>#let's_talk</h2>
+<p>Leave a Message, We love to hear from you.</p>
+
+
+    </section>
+
+<section id="contact-details" class="section-p1">
+<div class="contact">
+    <span>Contact Us</span>
+    <h2>Visit one of our agency locations or contact us today</h2>
+    <h3>Head Office</h3>   
+    <div>
+        <li >
+       <i class="fa-solid fa-map"></i>
+        <p>Wellington Road,Street 32,San Francisco</p>
+        </li>
+        <li>
+            <i class="fa-solid fa-phone"></i>
+            <p>+01 2222 365 /(+91) 01 2345 6789</p>
+        </li>
+        <li>
+            <i class="fa-solid fa-envelope"></i>
+            <p>abcde@gmail.com</p>
+        </li>
+        <li>
+            <i class="fa-solid fa-clock"></i>
+            <p>10:00 - 18:00, Mon - Sat</p>
+        </li>
+    </div> 
+
+</div>
+<div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0000000000005!2d-122.4194156846827!3d37.77492997975356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808a7f6b7a3d%3A0x7d9b1b6b4b8b6b7e!2sSan%20Francisco%2C%20CA%2C%20USA!5e0!3m2!1sen!2sin!4v1633663660734!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+</section>
+<section id="contact-form" class="section-p1">
+    <form id="cont-form" method="post">
+        <span>Leave a Message</span>
+        <h2>Get in Touch</h2>
+        <input type="text" name="name" placeholder="Name"  pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="subject" placeholder="Subject" required>
+        <textarea name="message" cols="30" rows="10" placeholder="Message" required></textarea>
+        <button type="submit" class="normal">Send Message</button>
+      </form>
+      
+    <div class="people">
+        <div>
+            <img src="img/people/1.png" alt="">
+            <p><span>Jhon Doe</span> Senior Marketing Manager<br>Phone: +01 2222 365 <br>Email: jhondoe@gmail.com</p>
+                    </div>
+                    <div>
+                        <img src="img/people/2.png" alt="">
+                        <p><span>James Web</span> Senior Marketing Manager<br>Phone: +01 2222 365 <br>Email: jweb@gmail.com</p>
+                                </div>
+                                <div>
+                                    <img src="img/people/3.png" alt="">
+                                    <p><span>Alex Grannt</span> Senior Marketing Manager<br>Phone: +01 2222 365 <br>Email: AlexG@gmail.com</p>
+                                            </div>
+    </div>
+    </section>
+
+
+   <div id="newsletter-container"></div>
+
+
+
+    <div id="footer-container"></div>
+    <script>// public/contact.js
+        document.getElementById('cont-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const form = event.target;
+  const formData = new FormData(form);
+
+  const data = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    subject: formData.get('subject'),
+    message: formData.get('message')
+  };
+
+  try {
+    const response = await fetch('/contact/send-message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      alert('Message sent successfully');
+      form.reset();
+    } else {
+      const error = await response.json();
+      alert('Error sending message: ' + error.message);
+    }
+  } catch (error) {
+    console.error('Error during form submission:', error);
+    alert('Error sending message');
+  }
+});
+
+        </script>
+    </body>
+
+</html>

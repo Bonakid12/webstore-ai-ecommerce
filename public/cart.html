@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cart</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+        <script src="NAVBAR.JS" defer></script>
+        <script src="footer.js" defer></script>
+        <script src="customer-chatbot.js" defer></script>
+        <style>
+            @media screen and (max-width: 768px) {
+    #cart-table {
+        font-size: 12px;
+    }
+    #cart-table td, #cart-table th {
+        padding: 8px;
+    }
+    #cart-total {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    #coupon {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #coupon input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #final-total {
+        width: 100%;
+    }
+}
+
+        </style>
+    </head>
+
+    <body>
+        <div id="navbar-container"></div>
+
+<section id="page-header" class="about-header">                                                                                                                                                                                                                                                                                                                                                                                                       
+
+<h2>#Cart</h2>
+<p>Review your items before checkout.And add Coupons to get 70% off.</p>
+
+
+    </section>
+
+    <section id="cart" class="section-p1">
+        <p id="empty-cart-message" style="text-align: center; display: none;">Your Cart is Empty</p>
+        <table width="100%" id="cart-table" style="display: none;">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Items will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="cart-total" class="section-p1">
+      
+        <div id="final-total">
+            <h3>Cart Total</h3>
+            <table width="100%">
+                <tr>
+                    <td>Subtotal</td>
+                    <td id="subtotal">$0.00</td>
+                </tr>
+              
+                <tr>
+                    <td>Shipping</td>
+                    <td>$10.00</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong id="total">$10.00</strong></td>
+                </tr>
+            </table>
+            <button class="normal"><a href="checkout.html" style="text-decoration: none; color: black;">Proceed to Checkout</a></button>
+        </div>
+    </section>
+    
+
+<div id="footer-container"></div>
+<script src="updatecartTable.js"></script>
+    </body>
+
+</html>

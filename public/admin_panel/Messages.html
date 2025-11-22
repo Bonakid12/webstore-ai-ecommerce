@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../admin-chatbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+    <script src="nav.js" defer></script>
+    
+    <style>
+        .messages-container {
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 800px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.messages-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.message {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.message:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message p {
+  margin: 8px 0;
+  font-size: 1rem;
+  word-wrap: break-word;
+}
+
+.message p strong {
+  color: #333;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .messages-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .message {
+    padding: 10px;
+  }
+
+  .message p {
+    font-size: 0.9rem;
+  }
+
+  .messages-container h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .messages-container {
+    padding: 8px;
+  }
+
+  .message p {
+    font-size: 0.85rem;
+  }
+
+  .messages-container h2 {
+    font-size: 1.1rem;
+  }
+}
+
+    </style>
+    <script src="../admin-chatbot.js" defer></script>
+</head>
+<body style="width: 100%;">
+   
+    <div class="customer_container">
+      <div id="navbar-container"></div>
+        <main> <div class="cust_right">
+        <div class="top">
+            <button id="menu-btn">
+                <span class="material-icons-sharp">menu</span>
+            </button>
+            <div class="theme-toggler">
+                <span class="material-icons-sharp active">light_mode</span>
+                <span class="material-icons-sharp">dark_mode</span>
+            </div>
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Asad</b></p>
+                    <small class="text-muted">Admin</small>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/profile-1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <div class="messages-container">
+        <h2>User Messages</h2>
+        <!-- Messages will be appended here dynamically -->
+      </div>
+      
+      
+            
+        </main>
+      
+    </div>
+    <script>
+      async function fetchMessages() {
+        const token = localStorage.getItem("adminToken"); 
+        if (!token) {
+          alert("Access denied. Please log in as an admin.");
+          window.location.href = "../admin.html"; // Redirect to login page
+          return;
+        }
+  try {
+    console.log('Fetching messages...');
+    const response = await fetch('/messages/get-messages',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }}
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const messages = await response.json();
+    console.log('Messages fetched:', messages);
+
+    const messagesContainer = document.querySelector('.messages-container');
+    messagesContainer.innerHTML = '<h2>User Messages</h2>';
+
+    messages.forEach((msg) => {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message');
+      messageDiv.innerHTML = `
+        <p><strong>Name:</strong> ${msg.name}</p>
+        <p><strong>Email:</strong> ${msg.email}</p>
+        <p><strong>Subject:</strong> ${msg.subject}</p>
+        <p><strong>Message:</strong> ${msg.message}</p>
+      `;
+      messagesContainer.appendChild(messageDiv);
+    });
+  } catch (error) {
+    console.error('Error fetching messages:', error.message);
+    alert('Failed to load messages.');
+  }
+}
+
+      
+        document.addEventListener('DOMContentLoaded', fetchMessages);
+        document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+});
+      </script>
+      
+      
+      
+</body>
+</html>

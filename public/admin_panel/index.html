@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../admin-chatbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+    <script src="../admin-chatbot.js" defer></script>
+    
+</head>
+<body>
+    <div class="container">
+        <div id="navbar-container"></div>
+        <main>
+        <h1>Dashboard</h1>
+        <div class="date">
+            <input type="date" id="dateInput">
+        </div>
+        <div class="insights">
+            <div class="sales">
+                <span class="material-icons-sharp">analytics</span>
+                <div class="middle">
+                    <div class="left">
+                        <h3>Total Sales</h3>
+                        <h1 id="total-sales">$0</h1>
+                    </div>
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36" id="sales-progress-circle"></circle>
+                        </svg>
+                        <div class="number">
+                            <p id="sales-growth">0%</p>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">Last 24 Hours: $<span id="sales-24h">0</span></small>
+            </div>
+            <!--  ------------END OF sales -------  -->
+            <div class="expenses">
+                <span class="material-icons-sharp">people</span>
+                <div class="middle">
+                    <div class="left">
+                        <h3>Total Customers</h3>
+                        <h1 id="total-customers">0</h1>
+                    </div>
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36" id="customers-progress-circle"></circle>
+                        </svg>
+                        <div class="number">
+                            <p id="customer-percentage">100%</p>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">New Today: <span id="new-customers">0</span></small>
+            </div>
+            <div class="income">
+                <span class="material-icons-sharp">shopping_bag</span>
+                <div class="middle">
+                    <div class="left">
+                        <h3>Total Orders</h3>
+                        <h1 id="total-orders">0</h1>
+                    </div>
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36" id="orders-progress-circle"></circle>
+                        </svg>
+                        <div class="number">
+                            <p id="orders-percentage">100%</p>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">Last 24 Hours: <span id="orders-24h">0</span></small>
+            </div>
+            <!--  ------------END OF orders -------  -->
+            <div class="products">
+                <span class="material-icons-sharp">inventory</span>
+                <div class="middle">
+                    <div class="left">
+                        <h3>Products</h3>
+                        <h1 id="total-products">0</h1>
+                    </div>
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36" id="products-progress-circle"></circle>
+                        </svg>
+                        <div class="number">
+                            <p id="stock-percentage">100%</p>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">Low Stock: <span id="low-stock" class="danger">0</span></small>
+            </div>
+        
+        </div>
+        <!--  ------------END OF insights -------  -->
+          <div class="recent-order">
+            <h2>Recent Orders</h2>
+            <table width="100%" id="order-table">
+                <thead>
+                    <tr>
+                        <th>Order-ID</th>
+                        <th>Product Id</th>
+                        <th>Price</th>
+                                               
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Order details will be dynamically added here -->
+                </tbody>
+            </table>
+            
+          </div>
+    </main>
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">menu</span>
+                </button>
+                <div class="theme-toggler">
+                    <span class="material-icons-sharp active">light_mode</span>
+                    <span class="material-icons-sharp">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>Asad</b></p>
+                        <small class="text-muted">Admin</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="images/profile-1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="recent-updates">
+                <h2>Recent Updates</h2>
+                <div class="updates" id="recent-updates-container">
+                    <!-- Recent updates will be loaded dynamically -->
+                </div>
+            </div>
+            <!--  ------------END OF recent-updates -------  -->
+              <div class="sales-analytics">
+                <h2>Sales Analytics</h2>
+                <div class="item online">
+                    <div class="icon">
+                        <span class="material-icons-sharp">shopping_cart</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>Total Orders</h3>
+                            <small class="text-muted">All Time</small>
+                        </div>
+                        <h5 class="success" id="orders-change">+0%</h5>
+                        <h3 id="analytics-orders">0</h3>
+                    </div>
+                </div>
+                <div class="item offline">
+                    <div class="icon">
+                        <span class="material-icons-sharp">people</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>Total Customers</h3>
+                            <small class="text-muted">Registered</small>
+                        </div>
+                        <h5 class="success" id="customers-change">+0%</h5>
+                        <h3 id="analytics-customers">0</h3>
+                    </div>
+                </div>
+                <div class="item customers">
+                    <div class="icon">
+                        <span class="material-icons-sharp">inventory</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>Products</h3>
+                            <small class="text-muted">In Stock</small>
+                        </div>
+                        <h5 class="warning" id="stock-warning">Low: <span id="analytics-low-stock">0</span></h5>
+                        <h3 id="analytics-products">0</h3>
+                    </div>
+                </div>
+                <div class="item add-product">
+                    <div>
+                        <span class="material-icons-sharp">add</span>
+                        <h3><a href="add_product.html" style="text-decoration: none; color: black;">Add Product</a></h3>
+                    </div>
+
+                </div>
+              </div>
+        </div>
+    </div>
+    <script src="nav.js" defer></script>
+    <script>
+         const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;
+
+  const formattedToday = yyyy + '-' + mm + '-' + dd;
+
+  document.getElementById('dateInput').value = formattedToday;
+
+              document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+            const orderTableBody = document.querySelector("#order-table tbody");
+           
+            try {
+                const response = await fetch("/showOrder/Recentorders");
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    orderTableBody.innerHTML = '<tr><td colspan="3">No orders found.</td></tr>';
+                    return;
+                }
+
+                
+                data.forEach(order => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td data-label="Order Id">${order.order_id}</td>
+                        <td data-label="Customer Id">${order.customer_id}</td>
+                        <td data-label="Price">$${order.total_amount}</td>
+                    `;
+                    orderTableBody.appendChild(row);
+                });
+            } catch (error) {
+                orderTableBody.innerHTML = '<tr><td colspan="3">Error fetching orders.</td></tr>';
+                console.error("Error:", error);
+            }
+        });
+
+// Load dashboard statistics
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch("/showOrder/dashboard-stats");
+        const stats = await response.json();
+
+        // Update main statistics cards
+        document.getElementById('total-sales').textContent = `$${parseFloat(stats.totalSales).toLocaleString()}`;
+        document.getElementById('sales-24h').textContent = parseFloat(stats.salesLast24h).toLocaleString();
+        document.getElementById('sales-growth').textContent = `${stats.salesGrowth >= 0 ? '+' : ''}${stats.salesGrowth}%`;
+        
+        document.getElementById('total-customers').textContent = stats.totalCustomers;
+        document.getElementById('new-customers').textContent = stats.newCustomersToday;
+        
+        document.getElementById('total-orders').textContent = stats.totalOrders;
+        document.getElementById('orders-24h').textContent = stats.ordersLast24h;
+        
+        document.getElementById('total-products').textContent = stats.totalProducts;
+        document.getElementById('low-stock').textContent = stats.lowStockProducts;
+
+        // Update analytics section
+        document.getElementById('analytics-orders').textContent = stats.totalOrders;
+        document.getElementById('analytics-customers').textContent = stats.totalCustomers;
+        document.getElementById('analytics-products').textContent = stats.totalProducts;
+        document.getElementById('analytics-low-stock').textContent = stats.lowStockProducts;
+
+        // Set growth colors
+        const salesGrowthElement = document.getElementById('sales-growth');
+        if (stats.salesGrowth >= 0) {
+            salesGrowthElement.className = 'success';
+        } else {
+            salesGrowthElement.className = 'danger';
+        }
+
+        // Update percentage displays with REAL progress values
+        document.getElementById('customer-percentage').textContent = `${stats.customerProgress}%`;
+        document.getElementById('orders-percentage').textContent = `${stats.orderProgress}%`;
+        document.getElementById('stock-percentage').textContent = `${stats.stockProgress}%`;
+
+        // Animate progress circles with REAL percentages from backend
+        animateProgressCircle('sales-progress-circle', stats.salesProgress, stats.salesGrowth >= 0 ? 'success' : 'primary');
+        animateProgressCircle('customers-progress-circle', stats.customerProgress, 'danger'); // Red for customers
+        animateProgressCircle('orders-progress-circle', stats.orderProgress, 'success'); // Green for orders
+        animateProgressCircle('products-progress-circle', stats.stockProgress, 
+            stats.stockProgress > 80 ? 'success' : stats.stockProgress > 50 ? 'warning' : 'danger');
+
+        // Debug info - shows the actual targets
+        console.log('Progress Targets:', {
+            sales: `${stats.salesProgress}% of $1,000 target`,
+            customers: `${stats.customerProgress}% of 50 customers target`,
+            orders: `${stats.orderProgress}% of 20 orders target`,
+            stock: `${stats.stockProgress}% products in good stock`
+        });
+
+    } catch (error) {
+        console.error("Error fetching dashboard statistics:", error);
+        // Set default values on error
+        document.getElementById('total-sales').textContent = '$0';
+        document.getElementById('total-customers').textContent = '0';
+        document.getElementById('total-orders').textContent = '0';
+        document.getElementById('total-products').textContent = '0';
+    }
+});
+
+// Function to animate progress circles
+function animateProgressCircle(circleId, percentage, colorClass = 'primary') {
+    const circle = document.getElementById(circleId);
+    if (!circle) return;
+    
+    const radius = 32; // Updated radius to match CSS
+    const circumference = radius * 2 * Math.PI;
+    
+    // Set initial state
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    circle.style.strokeDashoffset = circumference;
+    
+    // Set color based on class
+    const colors = {
+        'success': '#41f1b6',
+        'danger': '#ff7782',
+        'warning': '#ffbb55',
+        'info': '#7380ec',
+        'primary': '#7380ec'
+    };
+    
+    circle.style.stroke = colors[colorClass] || colors.primary;
+    circle.style.strokeWidth = '6';
+    circle.style.fill = 'none';
+    circle.style.strokeLinecap = 'round';
+    circle.setAttribute('cx', '40');
+    circle.setAttribute('cy', '40');
+    circle.setAttribute('r', '32');
+    
+    // Animate after a short delay
+    setTimeout(() => {
+        const offset = circumference - (percentage / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+    }, 200);
+}
+
+// Load recent updates
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch("/showOrder/recent-updates");
+        const updates = await response.json();
+        const updatesContainer = document.getElementById('recent-updates-container');
+
+        if (updates.length === 0) {
+            updatesContainer.innerHTML = '<p>No recent updates.</p>';
+            return;
+        }
+
+        updatesContainer.innerHTML = '';
+        
+        updates.slice(0, 3).forEach((update, index) => {
+            const profileImages = ['profile-2.jpg', 'profile-3.jpg', 'profile-4.jpg'];
+            const updateDiv = document.createElement('div');
+            updateDiv.className = 'update';
+            
+            const orderDate = new Date(update.order_date);
+            const timeAgo = getTimeAgo(orderDate);
+            
+            updateDiv.innerHTML = `
+                <div class="profile-photo">
+                    <img src="images/${profileImages[index % profileImages.length]}" alt="">
+                </div>
+                <div class="message">
+                    <p><b>${update.first_name} ${update.last_name}</b> ordered ${update.quantity}x ${update.product_name}.</p>
+                    <small class="text-muted">${timeAgo}</small>
+                </div>
+            `;
+            updatesContainer.appendChild(updateDiv);
+        });
+
+    } catch (error) {
+        console.error("Error fetching recent updates:", error);
+        document.getElementById('recent-updates-container').innerHTML = '<p>Error loading updates.</p>';
+    }
+});
+
+// Helper function to calculate time ago
+function getTimeAgo(date) {
+    const now = new Date();
+    const diffInMs = now - date;
+    const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+    const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInMinutes < 1) return 'Just now';
+    if (diffInMinutes < 60) return `${diffInMinutes} minute${diffInMinutes === 1 ? '' : 's'} ago`;
+    if (diffInHours < 24) return `${diffInHours} hour${diffInHours === 1 ? '' : 's'} ago`;
+    return `${diffInDays} day${diffInDays === 1 ? '' : 's'} ago`;
+}
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../admin-chatbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+   <script src="nav.js" defer></script>
+   
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 0 auto;
+        }
+        input, textarea{
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button{
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #555;
+        }
+    
+      </style>
+    <script src="../admin-chatbot.js" defer></script>
+</head>
+<body style="width: 100%;">
+   
+    <div class="customer_container">
+       <div id="navbar-container"></div>
+        <main> <div class="cust_right">
+        <div class="top">
+            <button id="menu-btn">
+                <span class="material-icons-sharp">menu</span>
+            </button>
+            <div class="theme-toggler">
+                <span class="material-icons-sharp active">light_mode</span>
+                <span class="material-icons-sharp">dark_mode</span>
+            </div>
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Asad</b></p>
+                    <small class="text-muted">Admin</small>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/profile-1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+            <div>
+                <h2>Settings</h2>
+                <form method="POST" id="update-admin-form">
+                    <h3 style="justify-content: center;text-align: center;">Update ADMIN</h3>
+                    <input type="number" name="id" min="1" id="id" placeholder="Enter ADMIN ID" required>
+
+                    <input type="text" name="name" id="name" placeholder="Change ADMIN name" 
+                           pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed" required>
+                    
+                    <input type="email" name="email" id="email" placeholder="Change ADMIN email" required>
+                    
+                    <input type="password" name="password" id="password" placeholder="Change ADMIN password" required
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" 
+                           title="Must be at least 8 characters with 1 uppercase, 1 lowercase, 1 number, and 1 special character">
+                    
+                    <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm password" required>
+                    
+                    <input type="text" name="special-word" id="special-word" pattern="^[A-Za-z]+$" 
+                           title="Only letters allowed" placeholder="Enter special word" required>
+                    
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+            <div>
+                <form method="POST" id="add-admin-form">
+                   <h3 style="justify-content: center;text-align: center;">ADD NEW ADMIN</h3>
+                    
+                   <input type="text" name="name" id="name" placeholder="Enter new ADMIN name"  
+       pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed" required>
+
+<input type="email" name="email" id="email" placeholder="Enter new ADMIN email" required>
+
+<input type="password" name="password" id="password" placeholder="Enter new ADMIN password" required
+       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" 
+       title="Must be at least 8 characters with 1 uppercase, 1 lowercase, 1 number, and 1 special character">
+
+<input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm password" required>
+
+<input type="text" name="special-word" id="special-word" placeholder="Enter special word" 
+       pattern="^[A-Za-z]+$" title="Only letters allowed" required>
+
+                    <button type="submit">Add New Admin</button>
+                </form>
+            </div>
+            <div>
+                <form method="POST" id="delete-admin-form">
+                    <h3>Delete ADMIN</h3>
+                    <input type="number" name="id"  min="1" id="id" placeholder="Enter ADMIN ID" required>
+                    <input type="text" name="name" id="name" placeholder="Enter ADMIN name" 
+                    pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed" required>
+                    <button type="submit">Delete Admin</button>
+                </form>
+            </div>
+
+            <div class="recent-order">
+                <h2>Admin Details</h2>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            
+                            <th>Id</th>
+                            <th>Name</th>
+                            
+                            
+                         
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            
+              </div>
+
+
+        </main>
+      
+    </div>
+    <script>
+       async function fetchAdmins(){
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            alert("Access denied. Please log in as an admin.");
+            window.location.href = "../admin.html"; // Redirect to login page
+        }
+    try{
+        const response=await fetch('/ADMIN/get-all', 
+            {method:'GET',
+            headers:{
+                Authorization:`Bearer ${token}`,
+                'Content-Type':'application/json'
+            }});
+        if (!response.ok) {
+            throw new Error('failed to fetch admin data');
+        }
+        const admins=await response.json();
+        const tbody=document.querySelector('tbody');
+
+        tbody.innerHTML='';
+
+        admins.forEach(admin=>{
+            const row=document.createElement('tr');
+            row.innerHTML=`
+                <td>${admin.user_id}</td>
+                <td>${admin.name}</td>
+               
+                
+            `;
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+ }
+ window.addEventListener('DOMContentLoaded',fetchAdmins);
+     
+document.getElementById('update-admin-form').addEventListener('submit',async (event)=>{
+event.preventDefault();
+const token = localStorage.getItem("adminToken");
+if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+}
+const form=event.target;
+const formData=new FormData(form);
+const data={
+    id:formData.get('id'),
+    name:formData.get('name'),
+    email:formData.get('email'),    
+    password:formData.get('password'),
+    confirm_password:formData.get('confirm-password'),
+    special_word:formData.get('special-word')
+
+};
+if (data.password !== data.confirm_password) {
+      alert('Passwords do not match');
+      return;
+    }
+try{
+    const response=await fetch('/ADMIN/update-admin', {
+        method:'POST',
+        headers:{
+            Authorization:`Bearer ${token}`,
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+    });
+    if (response.ok) {
+        alert('Operation successful');
+    }
+    if (!response.ok) {
+        throw new Error('failed to update admin');
+    }
+    form.reset();
+    fetchAdmins();
+} catch (error) {
+    console.error('Error updating admin:', error);
+}
+});
+document.getElementById('add-admin-form').addEventListener('submit',async (event)=>{    
+event.preventDefault();
+const token = localStorage.getItem("adminToken");
+if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+}
+const form=event.target;
+const formData=new FormData(form);
+const data={
+    name:formData.get('name'),
+    email:formData.get('email'),
+    password:formData.get('password'),
+    confirm_password:formData.get('confirm-password'),
+    special_word:formData.get('special-word')
+};  
+if (data.password !== data.confirm_password) {
+      alert('Passwords do not match');
+      return;
+    }
+
+try{
+    const response=await fetch('/ADMIN/add-admin',{
+        method:'POST',
+        headers:{
+            Authorization:`Bearer ${token}`,
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+    });
+    if (response.ok) {
+        alert('Operation successful');
+    }
+    if (!response.ok) {
+        throw new Error('failed to add admin');
+    }
+    form.reset();
+    fetchAdmins();
+} catch (error) {
+    console.error('Error adding admin:', error);
+}
+});
+document.getElementById('delete-admin-form').addEventListener('submit',async (event)=>{
+event.preventDefault();
+const token = localStorage.getItem("adminToken");
+if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+}
+const form=event.target;
+const formData=new FormData(form);
+const data={
+    id:formData.get('id'),
+    name:formData.get('name')
+};
+try{
+    const response=await fetch('/ADMIN/delete-admin',{
+        method:'POST',
+        headers:{
+            Authorization:`Bearer ${token}`,
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+    });
+    if (response.ok) {
+        alert('Operation successful');
+       
+    }
+    if (!response.ok) {
+        throw new Error('failed to delete admin');
+    }
+    form.reset();
+    fetchAdmins();
+} catch (error) {
+    console.error('Error deleting admin:', error);
+}
+});
+    
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../admin-chatbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+    <script src="nav.js" defer></script>
+   
+    <script src="../admin-chatbot.js" defer></script>
+</head>
+<body style="width: 100%;">
+   
+    <div class="customer_container">
+        <div id="navbar-container"></div>
+        <main> <div class="cust_right">
+        <div class="top">
+            <button id="menu-btn">
+                <span class="material-icons-sharp">menu</span>
+            </button>
+            <div class="theme-toggler">
+                <span class="material-icons-sharp active">light_mode</span>
+                <span class="material-icons-sharp">dark_mode</span>
+            </div>
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Asad</b></p>
+                    <small class="text-muted">Admin</small>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/profile-1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+            <h1>Customers</h1>
+            <div  style="overflow-x: auto;">
+                <table style="display: table;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>Postal-code</th>
+                            
+                            
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="customer-table-body">
+                        <!-- Customer rows will be added dynamically here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+      
+    </div>
+    <script>
+              document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+});
+        async function fetchCustomers() {
+            try {
+
+                const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+                const response = await fetch('/customer/customers', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, // Attach token in headers
+                'Content-Type': 'application/json'
+            }}); // Ensure this matches your route
+            
+                if (!response.ok) {
+                    throw new Error('Failed to fetch customer data');
+                }
+
+                const customers = await response.json();
+                const tableBody = document.getElementById('customer-table-body');
+
+                // Clear existing rows
+                tableBody.innerHTML = '';
+
+                // Populate table rows
+                customers.forEach(customer => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${customer.customer_id}</td>
+                        <td>${customer.first_name} ${customer.last_name}</td>
+                        <td>${customer.country}</td>
+                        <td>${customer.postal_code}</td>
+                       
+                        
+                       
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+            }
+        }
+
+        // Fetch customers when the page loads
+        window.addEventListener('DOMContentLoaded', fetchCustomers);
+    </script>
+</body>
+</html>

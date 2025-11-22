@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../admin-chatbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+    <script src="nav.js" defer></script>
+    <script src="../admin-chatbot.js" defer></script>
+    
+    <style>
+        #order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        #order-table th, #order-table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        #order-table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        
+        #order-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        #order-table tr:hover {
+            background-color: #eaeaea;
+        }
+/* Media query for screens less than 768px wide */
+@media screen and (max-width: 768px) {
+
+/* Hide table headers (th) on small screens */
+#order-table th {
+  display: none;
+}
+
+/* Display table rows (tr) as blocks for stacking */
+#order-table tr {
+  display: block;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+/* Style table cells (td) for responsive layout */
+#order-table td {
+  display: block;
+  text-align: right;
+  position: relative;
+  padding-left: 50%;
+}
+
+/* Create pseudo-element before each td to display data label */
+#order-table td::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #333;
+  padding-right: 10px;
+  background-color: #f4f4f4;
+  z-index: 1;
+}
+}
+
+        @media screen and (max-width: 768px) {
+            #track-order-section {
+                font-size: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+        <script src="nav.js" defer></script>
+    <!-- Order management scripts will be here -->
+</head>
+<body style="width: 100%;">
+    <div class="customer_container">
+        <div id="navbar-container"></div>
+        <main>
+            <div class="cust_right">
+                <div class="top">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">menu</span>
+                    </button>
+                    <div class="theme-toggler">
+                        <span class="material-icons-sharp active">light_mode</span>
+                        <span class="material-icons-sharp">dark_mode</span>
+                    </div>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b>Asad</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="images/profile-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section id="track-order-section" class="section-p1">
+                <h2>Order Details</h2>
+                <p id="order-message" style="text-align: center;">Please log in to see order details.</p>
+
+                <div id="order-details" style="display: none;">
+                    <h3>Your Order</h3>
+                    <table id="order-table" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Order Id</th>
+                                <th>Customer Id</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Order details will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const orderTableBody = document.querySelector("#order-table tbody");
+            const orderMessage = document.getElementById("order-message");
+            const orderDetails = document.getElementById("order-details");
+
+            try {
+                const response = await fetch("/showOrder/orders");
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    orderMessage.textContent = "No orders found.";
+                    orderDetails.style.display = "none";
+                    return;
+                }
+
+                orderMessage.style.display = "none";
+                orderDetails.style.display = "block";
+
+                data.forEach(order => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td data-label="Order Id">${order.order_id}</td>
+                        <td data-label="Customer Id">${order.customer_id}</td>
+                        <td data-label="Price">$${order.total_amount}</td>
+                    `;
+                    orderTableBody.appendChild(row);
+                });
+            } catch (error) {
+                orderMessage.textContent = "Error fetching orders.";
+                console.error("Error:", error);
+            }
+        });
+    </script>
+</body>
+</html>

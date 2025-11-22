@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+    <script src="NAVBAR.JS" defer></script>
+    <script src="footer.js" defer></script>
+    <style>#order-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    
+    #order-table th, #order-table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+        
+    }
+    
+    #order-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+    
+    #order-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    
+    #order-table tr:hover {
+        background-color: #eaeaea;
+    }
+    
+    /* Make the table scrollable and fix text overflow on small screens */
+    @media screen and (max-width: 768px) {
+        #order-table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    
+        #order-table th, #order-table td {
+            padding: 12px 8px; /* Added padding for better spacing on small devices */
+            font-size: 14px;
+            word-wrap: break-word; /* Ensure long text wraps correctly */
+            white-space: normal; /* Allow wrapping of text inside cells */
+        }
+    
+        #order-table thead {
+            display: none; /* Hide headers on small screens */
+        }
+    
+        #order-table tr {
+            display: block;
+            margin-bottom: 10px;
+            border: none; /* Remove borders for better readability */
+        }
+    
+        #order-table td {
+            display: block;
+            text-align: right;
+            position: relative;
+            padding-left: 50%; /* Add space for the label on the left */
+            word-wrap: break-word; /* Ensure long text wraps correctly */
+        }
+    
+        #order-table td::before {
+    /* Add labels before the content for each column */
+    content: attr(data-label);
+    position: absolute;
+    left: 10px; /* Adjusted from 0 to add some space inside the cell */
+    top: 50%;
+    transform: translateY(-50%); /* Center the label vertically */
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #333; /* Optional: Make the label more readable */
+    padding-right: 10px; /* Ensure label doesn't overlap with text */
+    background-color: #f4f4f4; /* Optional: Add background for better visibility */
+    z-index: 1; /* Ensure label is above the text */
+}
+
+    }
+    
+    @media screen and (max-width: 768px) {
+        #track-order-section {
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+    
+    </style>
+        <script src="customer-chatbot.js" defer></script>
+    </head>
+<body>
+    <div id="navbar-container"></div>
+
+    <section id="track-order-section" class="section-p1">
+        <h2>Track Your Order</h2>
+        <p id="order-message" style="text-align: center;">Please log in to track your order.</p>
+
+        <div id="order-details" style="display: none;">
+            <h3>Your Order</h3>
+            <table width="100%" id="order-table">
+                <thead>
+                    <tr>
+                        <th>Order Date</th>
+                        <th>Tracking Number</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Order details will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+    <script src="trackOrder.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+  <product>
+    <id>1</id>
+    <name>Ds Shirt</name>
+    <type>Shirt</type>
+    <price>50.00</price>
+    <ranking>4</ranking>
+    <sizes>S, M, L, XL</sizes>
+    <image>/api/product-image/1</image>
+    <description>Cool Easy Wear Shirt</description>
+  </product>
+  <product>
+    <id>2</id>
+    <name>Ds White Shirt</name>
+    <type>Shirt</type>
+    <price>50.00</price>
+    <ranking>4</ranking>
+    <sizes>S, M, L, XL</sizes>
+    <image>/api/product-image/2</image>
+    <description>Beautiful White shirt</description>
+  </product>
+  <product>
+    <id>3</id>
+    <name>Ds Special wear</name>
+    <type>Shirt</type>
+    <price>55.00</price>
+    <ranking>5</ranking>
+    <sizes>S, M, L, XL</sizes>
+    <image>/api/product-image/3</image>
+    <description>Ds's Special Wear</description>
+  </product>
+  <product>
+    <id>4</id>
+    <name>Runners</name>
+    <type>Shoes</type>
+    <price>50.00</price>
+    <ranking>4</ranking>
+    <sizes>S, M, L</sizes>
+    <image>/api/product-image/4</image>
+    <description>Red color Running shoes</description>
+  </product>
+  <product>
+    <id>5</id>
+    <name>Modern Bag</name>
+    <type>Bag</type>
+    <price>12.00</price>
+    <ranking>5</ranking>
+    <sizes>S, M, L</sizes>
+    <image>/api/product-image/5</image>
+    <description>A Modern look black beautiful bag</description>
+  </product>
+  <product>
+    <id>6</id>
+    <name>Ds Watch</name>
+    <type>Watch</type>
+    <price>10.00</price>
+    <ranking>4</ranking>
+    <sizes>M</sizes>
+    <image>/api/product-image/6</image>
+    <description>A beautiful Black Colored Sports Wrist watch</description>
+  </product>
+  <product>
+    <id>7</id>
+    <name>MgBag</name>
+    <type>Bag</type>
+    <price>12.00</price>
+    <ranking>5</ranking>
+    <sizes>S, M</sizes>
+    <image>/api/product-image/7</image>
+    <description>Classy Travel bag</description>
+  </product>
+</products>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>G&G</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+        <script src="newsletter.js" defer></script>
+        <script src="customer-chatbot.js" defer></script>
+        
+   <script src="NAVBAR.JS" defer></script>
+   <script src="footer.js" defer></script>
+    </head>
+
+    <body>
+     
+        <div id="navbar-container"></div>
+<section id="hero">
+<h4>Trade-in-offer</h4>
+<h2>Super value deals</h2>
+<h1>On all products</h1>
+<p>Save more with coupons</p>
+<button><a href="shop.html" style="text-decoration: none; color: black;">Shop Now</a></button>
+
+    </section>
+
+<section id="feature" class="section-p1">
+<div class="fe-box">
+    <img src="img/features/f1.png">
+    <h6>Free Shipping</h6>
+    <p>Free shipping on all order</p>
+</div>
+<div class="fe-box">
+    <img src="img/features/f2.png">
+   <h6>Online Order</h6>
+    <p>Order Online, Fast Delivery</p>
+</div>
+<div class="fe-box">
+    <img src="img/features/f3.png">
+    <h6>Save Money</h6>
+    <p>Save money with best price</p>
+</div>
+<div class="fe-box">
+    <img src="img/features/f4.png">
+    <h6>Promotions</h6>
+    <p>Get discount on all products</p>
+</div>
+<div class="fe-box">
+    <img src="img/features/f5.png">
+    <h6>Happy Sell</h6>
+    <p>100% Happy Customer</p>
+</div>
+<div class="fe-box">
+    <img src="img/features/f6.png">
+    <h6>Support</h6>
+    <p>24/7 customer support</p>
+</div>
+    </section>
+
+<section id="product1" class="section-p1" >
+<h2>Featured Products</h2>
+<p>Shop for the best products</p>
+<div class="product-box"></div>
+  <button class="normal" style="border: 1px solid grey;"><a href="shop.html" style="text-decoration: none; color: black;">Explore more</a></button>
+</section>
+
+<section id="banner" sclass="section-m1">
+    <h4>Repair Service</h4>
+    <h2>Up to <span>70% off</span> - all t-shirts and Accessories</h2>
+  
+</section >
+
+
+
+
+    <section id="sm-banner" class="section-p1">
+<div class="banner-box">
+    <h4>Crazy Deals</h4>
+    <h2>buy 1 get 1 free</h2>
+    <span>The best classic dress is on sale at cara</span>
+    <button class="white">Learn More</button>
+</div>
+<div class="banner-box banner-box2">
+    <h4>Spring/Summer</h4>
+    <h2>Upcomming Season</h2>
+    <span>The best classic dress is on sale at cara</span>
+    <button class="white">Collection</button>
+</div>
+    </section>
+    <section id="banner3">
+        <div class="banner-box ">
+            <h2>Seasonal Sale</h2>
+            <h3>Winter Collection -50% OFF</h3>
+            
+        </div>
+        <div class="banner-box  banner-box2">
+            <h2>Seasonal Sale</h2>
+            <h3>Winter Collection -50% OFF</h3>
+            
+        </div>
+        <div class="banner-box banner-box3">
+            <h2>Seasonal Sale</h2>
+            <h3>Winter Collection -50% OFF</h3>
+            
+        </div>
+       
+    </section>
+ <div id="newsletter-container"></div>
+    <div id="footer-container"></div>
+
+   <script>
+   async function fetchProducts() {
+    try {
+        const response = await fetch('products.xml');
+        const text = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, "application/xml");
+        const products = xml.getElementsByTagName("product");
+
+        const productBox = document.querySelector(".product-box");
+        productBox.innerHTML = ""; 
+
+        // Define a map to keep track of added product types
+        const addedTypes = {
+            Shirt: false,
+            Jacket: false,
+            Bag: false,
+            Shoes: false,
+            Watche: false
+
+        };
+
+        // Counter to keep track of how many products we've added
+        let addedCount = 0;
+
+        Array.from(products).forEach(product => {
+            if (addedCount >= 8) return;
+
+            const id = product.getElementsByTagName("id")[0].textContent;
+            const name = product.getElementsByTagName("name")[0].textContent;
+            const type = product.getElementsByTagName("type")[0].textContent.toLowerCase();
+            const price = product.getElementsByTagName("price")[0].textContent;
+            const ranking = product.getElementsByTagName("ranking")[0].textContent;
+            const image = product.getElementsByTagName("image")[0].textContent;
+            const description = product.getElementsByTagName("description")[0].textContent;
+
+            // Check if this product type has already been added
+            if (!addedTypes[type] && addedCount < 8) {
+                addedTypes[type] = true;
+                addedCount++;
+
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+                productDiv.onclick = () => location.href = 'sproductpage.html?id=' + id;
+
+                productDiv.innerHTML = `
+                    <img src="${image}" alt="${name}">
+                    <div class="description">
+                        <span>${type}</span>
+                        <h5>${name}</h5>
+                        <div class="star">
+                            ${'⭐'.repeat(ranking)}
+                        </div>
+                        <h4>$${price}</h4>
+                    </div>
+                    <a href="#" class="cart-btn"><i class="fa-solid fa-cart-plus cart"></i></a>
+                `;
+                productBox.appendChild(productDiv);
+            }
+        });
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}    document.addEventListener("DOMContentLoaded", fetchProducts);
+   </script>
+    </body>
+
+</html>

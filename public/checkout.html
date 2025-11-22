@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="NAVBAR.JS" defer></script>
+    <script src="footer.js"></script>
+    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+
+    <style>
+        /* Reset some styles for a clean slate */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        #coupon {
+            margin-top: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        #coupon input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .cart-total {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .flex {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .flex .input-box {
+            width: 48%;
+        }
+
+        @media (max-width: 768px) {
+            .flex {
+                flex-direction: column;
+            }
+
+            .flex .input-box {
+                width: 100%;
+            }
+        }
+    </style>
+
+        <script src="customer-chatbot.js" defer></script>
+    </head>
+
+<body>
+
+    <div id="navbar-container">
+        <!-- Your Navbar content here -->
+    </div>
+
+    <div class="container">
+        <h1>Checkout</h1>
+        <form method="POST" id="Checkout-form">
+            <!-- Billing Information -->
+            <div class="flex">
+                <div class="input-box">
+                    <input type="text" name="name" placeholder="Full Name" required pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed">
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+            </div>
+            
+            <div class="flex">
+                <div class="input-box">
+                    <input type="tel" name="phone" placeholder="Phone" required pattern="^\+?[0-9]{10,15}$" title="Enter a valid phone number (10-15 digits)">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="address" placeholder="Address" required>
+                </div>
+            </div>
+            
+            <div class="flex">
+                <div class="input-box">
+                    <input type="text" name="city" placeholder="City" required pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="state" placeholder="State" required pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed">
+                </div>
+            </div>
+            
+            <div class="flex">
+                <div class="input-box">
+                    <input type="text" name="zip" placeholder="Zip" required pattern="^\d{4,10}$" title="Enter a valid zip code (4-10 digits)">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="country" placeholder="Country" required pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed">
+                </div>
+            </div>
+            
+            <!-- Shipping Information -->
+            <div class="input-box">
+                <input type="text" name="shippingaddress" placeholder="Shipping Address" required>
+            </div>
+            
+            <!-- Payment Information -->
+            <div class="input-box">
+                <select name="paymentmethod" id="paymentmethod" required>
+                    <option value="mastercard">Master Card</option>
+                    <option value="paypal">Paypal</option>
+                    <option value="stripe">Stripe</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <input type="text" name="cardnumber" placeholder="Card Number" required pattern="^\d{16}$" title="Enter a valid 16-digit card number">
+            </div>
+            
+            <div class="flex">
+                <div class="input-box">
+                    <input type="text" name="expdate" placeholder="MM/YY" required pattern="^(0[1-9]|1[0-2])\/\d{2}$" title="Enter expiration date in MM/YY format">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="cvv" placeholder="CVV" required pattern="^\d{3,4}$" title="Enter a valid 3 or 4-digit CVV">
+                </div>
+            </div>
+            
+            <div class="input-box">
+                <input type="text" name="cardholder" placeholder="Card Holder Name" required pattern="^[A-Za-z\s]+$" title="Only letters and spaces allowed">
+            </div>
+            
+
+            <!-- Cart Total -->
+            <div class="cart-total">
+                <h3>Cart Total</h3>
+                <p>Total: $<span id="total"></span></p>
+            </div>
+            
+            <!-- Apply Coupon -->
+            <div id="coupon">
+                <h3>Apply Coupon</h3>
+                <div>
+                    <input type="text" id="coupon-input" placeholder="Enter Coupon Code">
+                    <button type="button" id="apply-coupon">Apply</button>
+                    <p id="coupon-message"></p>
+                </div>
+            </div>
+
+            <input type="submit" value="Checkout">
+        </form>
+    </div>
+
+    <div id="footer-container">
+        <!-- Your footer content here -->
+    </div>
+
+    <script>
+        document.getElementById("Checkout-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const token = localStorage.getItem("token"); // Assuming token contains customer info
+            const cart = JSON.parse(localStorage.getItem("cart")); // Assuming cart contains items
+            const total = localStorage.getItem("total");
+            console.log(token, cart, total);
+
+            if (!token || !cart || !total) {
+                alert("Error: Missing user or cart data.");
+                return;
+            }
+
+            const formData = new FormData(this);
+            const checkoutData = {
+    token,
+    cart,
+    total,
+    paymentMethod: formData.get("paymentmethod"),
+    cardNumber: formData.get("cardnumber"),
+    expDate: formData.get("expdate"),
+    cvv: formData.get("cvv"),
+    cardHolder: formData.get("cardholder"),
+    shippingAddress: formData.get("shippingaddress"),
+    city: formData.get("city"),
+    state: formData.get("state"),
+    country: formData.get("country"),
+    zip: formData.get("zip"),
+    discountCode: localStorage.getItem("discount_code"),
+    discountAmount: localStorage.getItem("discount_amount"),
+    finalTotal: localStorage.getItem("final_total")
+};
+
+
+            try {
+                const response = await fetch("/checkout/CHECKED", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(checkoutData)
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert(`Checkout Successful! Your Tracking Number: ${result.trackingNumber}`);
+                    localStorage.removeItem("cart"); // Clear cart after successful checkout
+                    localStorage.removeItem("total"); // Clear total after successful checkout
+                    localStorage.removeItem("discount_code"); // Clear discount code after successful checkout
+                    localStorage.removeItem("discount_amount"); // Clear discount amount after successful checkout
+                    localStorage.removeItem("final_total"); // Clear final total after successful checkout
+                    window.location.href = "/track-order.html"; // Redirect to confirmation page
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error("Checkout Error:", error);
+                alert("An error occurred. Please try again.");
+            }
+        });
+
+        // Handle applying coupon
+// Handle applying coupon
+document.getElementById("apply-coupon").addEventListener("click", async () => {
+    const couponCode = document.getElementById("coupon-input").value.trim();
+    const couponMessage = document.getElementById("coupon-message");
+
+    if (!couponCode) {
+        couponMessage.textContent = "Please enter a coupon code.";
+        return;
+    }
+
+    try {
+        const response = await fetch('/discounts/validate-coupon', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ discount_code: couponCode })
+        });
+
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+
+        const data = await response.json();
+        const discountPercentage = data.discount_percentage;
+        const total = parseFloat(localStorage.getItem("total"));
+        const discountAmount = (total * discountPercentage) / 100;
+        const discountedTotal = total - discountAmount;
+
+        // Save discount data to localStorage
+        localStorage.setItem("discount_code", couponCode);
+        localStorage.setItem("discount_amount", discountAmount.toFixed(2));
+        localStorage.setItem("final_total", discountedTotal.toFixed(2));
+
+        couponMessage.textContent = `Coupon applied successfully! ${discountPercentage}% discount applied.`;
+        document.getElementById("total").textContent = discountedTotal.toFixed(2);
+    } catch (error) {
+        couponMessage.textContent = "Invalid or expired coupon.";
+    }
+});
+
+    </script>
+
+</body>
+
+</html>

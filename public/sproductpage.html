@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+        <script src="NAVBAR.JS" defer></script>
+        <script src="newsletter.js" defer></script>
+        <script src="footer.js"></script>
+        <script src="customer-chatbot.js" defer></script>
+    </head>
+
+    <body>
+
+        <div id="navbar-container"></div>
+        <section id="product-details">
+            <div class="single-product-image">
+                <img src="" id="Main-image" width="100%" alt="Product Image">
+                <!-- Removed small image gallery for single image display -->
+            </div>
+            <div class="single-product-details">
+                <h6><span id="product-category"></span></h6>
+                <h4 class="name" id="product-name"></h4>
+                <h2 class="price" id="product-price"></h2>
+                <select id="product-size" required>
+                    <option disabled>Select Size</option>
+                    
+                </select>
+                <input type="number" value="1" min="1" class="quantity" id="quantity">
+                <button class="normal add-to-cart" id="add-to-cart">Add to Cart</button>
+                <h4>Product Details</h4>
+                <div><span id="product-description"></span></div>
+                <button class="normal add-to-wishlist" id="add-to-wishlist">Add to Wishlist</button>
+            </div>
+        </section>
+        
+
+
+    <div id="newsletter-container"></div>
+    <div id="footer-container"></div>
+    
+  <script src="addTocart.js"></script>
+  <script>
+   
+   window.onload = function () {
+    // Extract the product ID from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    // Fetch product data
+    fetch(`/singlepage/${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('product-name').innerText = data.name;
+            document.getElementById('product-price').innerText = `$${data.price}`;
+            document.getElementById('product-description').innerText = data.description;
+            document.getElementById('product-category').innerText = data.type;
+            document.getElementById('Main-image').src = data.image;
+
+            // Populate size dropdown
+            const sizeSelect = document.getElementById('product-size');
+            data.sizes.forEach(size => {
+                const option = document.createElement('option');
+                option.value = size;
+                option.innerText = size;
+                sizeSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching product data:', error));
+};
+document.getElementById('add-to-wishlist').addEventListener('click', function () {
+    const productId = new URLSearchParams(window.location.search).get('id');
+    const token = localStorage.getItem('token'); // Retrieve the token
+
+    if (!token) {
+        alert('Please log in to add items to your wishlist.');
+        return;
+    }
+
+    fetch('/wishlist/add', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Send token in header
+        },
+        body: JSON.stringify({ product_id: productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Product added to wishlist!');
+        } else {
+            if (data.message === 'Product is already in wishlist') {
+                alert('This product is already in your wishlist.');
+            } else {
+                alert('Failed to add product to wishlist.');
+            }
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+  </script>
+    <!-- Removed small image click handlers since we're using single image -->
+    </body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blog-Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+        <script src="NAVBAR.JS" defer></script>
+        <script src="footer.js"></script>
+            <script src="customer-chatbot.js" defer></script>
+    </head>
+
+    <body>
+
+        <div id="navbar-container"></div>
+
+<section id="page-header" class="blog-header">                                                                                                                                                                                                                                                                                                                                                                                                       
+
+<h2>#readmore</h2>
+<p>Home / Blog</p>
+</section>
+
+
+<section id="blog">
+
+</section>
+
+
+
+    <section id="newsletter" class="section-p1 section-m1">
+<div class="newstext">
+    <h4>Signup for NewsLetters</h4>
+    <p>Get Email Updates about our latest shop and<span> special offers.</span></p>
+</div>
+<div class="newsform">
+    <input type="email" placeholder="Enter your email">
+    <button class="normal">Subscribe</button>
+</div>
+    </section>
+
+
+
+<div. id="footer-container"></div>
+<script>// Assuming you have a function to load and parse the XML data
+     async function loadBlogs() {
+    try {
+        const response = await fetch('blog.xml'); // Ensure this file exists at the correct path
+        const text = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, "application/xml");
+        const blogs = xml.getElementsByTagName("blog");
+
+        let blogHTML = '';
+        Array.from(blogs).forEach(blog => {
+            const title = blog.getElementsByTagName("title")[0].textContent;
+            const author = blog.getElementsByTagName("author")[0]?.textContent || "Unknown Author";
+            const date = blog.getElementsByTagName("date")[0]?.textContent || "No Date";
+            const image = blog.getElementsByTagName("image")[0]?.textContent || "img/default.jpg";
+            const content = blog.getElementsByTagName("content")[0]?.textContent || "No Content";
+            blogHTML += `
+    <div class="blog-box">
+        <div class="blog-img">
+            <img src="${image}" alt="${title}">
+        </div>
+        <div class="blog-details">
+            <h4>${title}</h4>
+            <p>${content.substring(0, 100)}...</p> <!-- Show preview -->
+            <a href="singleblogpage.html?id=${blog.getAttribute("id")}">Read More</a>
+        </div>
+        <h1>${date}</h1>
+    </div>
+`;
+
+        });
+
+        document.getElementById('blog').innerHTML = blogHTML;
+    } catch (error) {
+        console.error("Error fetching blog data:", error);
+    }
+}
+
+// Load blogs when the page loads
+document.addEventListener("DOMContentLoaded", loadBlogs);
+
+    </script>
+    </body>
+
+</html>

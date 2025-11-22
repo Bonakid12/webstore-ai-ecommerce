@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="customer-chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <script src="NAVBAR.JS" defer></script>
+    <script src="footer.js" defer></script>
+    <style>
+        /* Wishlist Page Styling */
+#wishlist-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.wishlist-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.wishlist-item:hover {
+    transform: scale(1.05);
+}
+
+.wishlist-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.wishlist-item h4 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.wishlist-item p {
+    font-size: 16px;
+    color: #666;
+}
+
+.wishlist-item button {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.wishlist-item button:hover {
+    background: #d43f3f;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #wishlist-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        padding: 10px;
+    }
+
+    .wishlist-item {
+        padding: 10px;
+    }
+
+    .wishlist-item h4 {
+        font-size: 16px;
+    }
+
+    .wishlist-item p {
+        font-size: 14px;
+    }
+
+    .wishlist-item button {
+        padding: 6px 10px;
+    }
+}
+
+    </style>
+        <script src="customer-chatbot.js" defer></script>
+    </head>
+<body>
+    <div id="navbar-container"></div>
+    
+    <section id="page-header" class="wishlist-header">
+        <h2>Your Wishlist</h2>
+        <p>Save your favorite products here</p>
+    </section>
+    
+    <section id="wishlist" class="section-p1">
+        <div id="wishlist-container"></div>
+    </section>
+    
+    <div id="footer-container"></div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const wishlistContainer = document.getElementById("wishlist-container");
+            const token = localStorage.getItem("token"); // Retrieve JWT token
+
+            if (!token) {
+                wishlistContainer.innerHTML = "<p>Please log in to view your wishlist.</p>";
+                return;
+            }
+
+            async function fetchWishlist() {
+                try {
+                    const response = await fetch("/wishlist/mywishlist", {
+                        method: "GET",
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+
+                    const data = await response.json();
+
+                    if (!data.success) {
+                        wishlistContainer.innerHTML = `<p>${data.message}</p>`;
+                        return;
+                    }
+
+                    displayWishlist(data.wishlist);
+                } catch (error) {
+                    console.error("Error fetching wishlist:", error);
+                    wishlistContainer.innerHTML = "<p>Error loading wishlist.</p>";
+                }
+            }
+
+            function displayWishlist(wishlist) {
+                wishlistContainer.innerHTML = "";
+                
+                if (wishlist.length === 0) {
+                    wishlistContainer.innerHTML = "<p>Your wishlist is empty.</p>";
+                    return;
+                }
+
+                wishlist.forEach((item) => {
+                    const productDiv = document.createElement("div");
+                    productDiv.classList.add("wishlist-item");
+                    productDiv.innerHTML = `
+                        <img src="${item.product_image}" alt="${item.product_name}">
+                        <h4>${item.product_name}</h4>
+                        <p>Price: $${item.product_price}</p>
+                        <button onclick="removeFromWishlist(${item.product_id})">Remove</button>
+                    `;
+                    wishlistContainer.appendChild(productDiv);
+                });
+            }
+
+            window.removeFromWishlist = async (productId) => {
+                try {
+                    const response = await fetch("/wishlist/remove", {
+                        method: "DELETE",
+                        headers: { 
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ product_id: productId })
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        fetchWishlist(); // Refresh wishlist after removing item
+                    } else {
+                        alert("Failed to remove item from wishlist.");
+                    }
+                } catch (error) {
+                    console.error("Error removing wishlist item:", error);
+                }
+            };
+
+            fetchWishlist();
+        });
+    </script>
+</body>
+</html>

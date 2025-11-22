@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="NAVBAR.JS" defer></script>
+    <script src="footer.js" defer></script>
+
+        <script src="chatbot.js" defer></script>
+    </head>
+<body >
+ <div id="navbar-container"></div>
+ 
+ <section id="Registeration-form" class="section-p1">
+    <form  id="login-form" method="POST" >
+      <span>G&G</span>
+      <h2 style="margin-left: 10px;">Login</h2>
+      <hr style="width: 100%;">
+      <label for="email">Enter Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <label for="password">Enter Your Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+  
+      <button class="normal" type="submit">Login</button>
+      <span style="margin-top: 10px;">Do not have an account?<a href="user.html">Register</a>Yourself</span>
+    </form>
+  </section>
+  
+
+ <div id="footer-container"></div>
+ <script>
+document.getElementById('login-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const data = {
+        email: formData.get('email'),
+        password: formData.get('password')
+      };
+      try {
+        const response = await fetch('/login/user-authenticate', { // Ensure this points to /userAuth/authenticate
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        const responseData = await response.json();
+        if (response.ok) {
+          if (localStorage.getItem("token")) {
+            localStorage.removeItem("token");
+            sessionStorage.removeItem("user");
+            localStorage.removeItem("cart");
+          }
+                // Store token in Local Storage
+            localStorage.setItem("token", responseData.token);
+
+                // Store user details in Session Storage
+                sessionStorage.setItem("user", JSON.stringify(responseData.user));
+
+                // Redirect to the home page or user dashboard
+                alert("Login successful! Redirecting...");
+          window.location.href = '/index.html'; // Redirect to user panel
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+ 
+
+ </script>
+ 
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../admin-chatbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+    <script src="nav.js" defer></script>
+    
+  <style>
+    form{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin: 0 auto;
+    }
+    input, textarea{
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button{
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #333;
+        color: #fff;
+        cursor: pointer;
+    }
+    button:hover{
+        background-color: #555;
+    }
+
+  </style>
+    
+    <script src="../admin-chatbot.js" defer></script>
+</head>
+<body style="width: 100%;">
+   
+    <div class="customer_container">
+        <div id="navbar-container"></div>
+        <main> <div class="cust_right">
+        <div class="top">
+            <button id="menu-btn">
+                <span class="material-icons-sharp">menu</span>
+            </button>
+            <div class="theme-toggler">
+                <span class="material-icons-sharp active">light_mode</span>
+                <span class="material-icons-sharp">dark_mode</span>
+            </div>
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Asad</b></p>
+                    <small class="text-muted">Admin</small>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/profile-1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+            
+<div>
+    
+    <form id="add-product-form" method="POST" enctype="multipart/form-data">
+        <h3 style="justify-content: center;text-align: center;">Add Product</h3>
+        <input type="text" name="name" placeholder="Product Name" pattern="^[A-Za-z\s]+$" title="Only letters are allowed" required>
+        <input type="text" name="type" placeholder="Product Type"  pattern="^(Shirt|Jacket|Bag|Shoes|Watch|Cap)$" 
+        title="Allowed values: shirt, pant, glasses, bag, shoes, troso, women cloth" required>
+        <input type="number" name="price" placeholder="Product Price" required>
+        <input type="number" name="ranking" placeholder="Product Ranking" min="1" max="5" title="Please enter a number between 1 and 5" required>
+      
+        <!-- Changed from text input to file input for image upload -->
+        <label for="image-upload">Product Image:</label>
+        <input type="file" id="image-upload" name="image" accept="image/*" required>
+        <div id="image-preview-container" style="margin: 10px 0;">
+            <img id="image-preview" style="max-width: 200px; max-height: 200px; display: none;" alt="Image Preview">
+        </div>
+        
+        <textarea name="description" placeholder="Product Description" required></textarea>
+        <!-- New Stock Input -->
+        <input type="number" name="stock_quantity" placeholder="Stock Quantity" required>
+        <label>Available Sizes:</label>
+        <div>
+            <input type="checkbox" id="size_s" checked name="product_sizes[]" value="S">
+            <label for="size_s">S</label>
+    
+            <input type="checkbox" id="size_m" name="product_sizes[]" value="M">
+            <label for="size_m">M</label>
+    
+            <input type="checkbox" id="size_l" name="product_sizes[]" value="L">
+            <label for="size_l">L</label>
+    
+            <input type="checkbox" id="size_xl" name="product_sizes[]" value="XL">
+            <label for="size_xl">XL</label>
+        </div>
+    
+        <button type="submit">Add Product</button>
+    </form>
+    
+    
+</div>
+<div>
+    <form method="POST" id="update-product-form" enctype="multipart/form-data">
+        <h3 style="justify-content: center;text-align: center;">Update Product</h3>
+        <input type="number" name="id" placeholder="Product Id" required>
+        <input type="text" name="name" placeholder="Product Name" pattern="^[A-Za-z\s]+$" title="Only letters are allowed" required>
+        <input type="text" name="type" placeholder="Product Type" pattern="^(Shirt|Jacket|Bag|Shoes|Watch|Cap)$" 
+        title="Allowed values: shirt, pant, glasses, bag, shoes, troso, women cloth" required>
+        <input type="number" name="price" placeholder="Product Price" required>
+        <input type="number" name="ranking" placeholder="Product Ranking" min="1" max="5" title="Please enter a number between 1 and 5" required>
+        
+        <!-- Changed from text input to file input for image upload -->
+        <label for="image-upload-update">Product Image (Leave empty to keep current):</label>
+        <input type="file" id="image-upload-update" name="image" accept="image/*">
+        <div id="image-preview-container-update" style="margin: 10px 0;">
+            <img id="image-preview-update" style="max-width: 200px; max-height: 200px; display: none;" alt="Image Preview">
+        </div>
+        
+        <textarea name="description" placeholder="Product Description" required></textarea>
+        <!-- New Stock Input -->
+        <input type="number" name="stock_quantity" placeholder="Stock Quantity" required>
+        <label>Available Sizes:</label>
+        <div>
+            <input type="checkbox" id="size_s" checked name="product_sizes[]" value="S">
+            <label for="size_s">S</label>
+    
+            <input type="checkbox" id="size_m" name="product_sizes[]" value="M">
+            <label for="size_m">M</label>
+    
+            <input type="checkbox" id="size_l" name="product_sizes[]" value="L">
+            <label for="size_l">L</label>
+    
+            <input type="checkbox" id="size_xl" name="product_sizes[]" value="XL">
+            <label for="size_xl">XL</label>
+        </div>
+        <button type="submit">Update Product</button>
+    </form>
+    
+</div>
+<div>
+    <form method="POST" id="delete-product-form">
+        <h3 style="justify-content: center;text-align: center;">Delete Product</h3>
+        <input type="number" name="id" placeholder="Product Id" required>
+        <button type="submit">Delete Product</button>
+    </form>
+</div>
+<div class="recent-order">
+    <h2>Products</h2>
+    <table width="100%">
+        <thead>
+            <tr>
+                
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                
+             
+                
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+  </div>
+
+        </main>
+      
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+ const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+});
+
+ async function fetchPrducts(){
+    try{
+        const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+        const response=await fetch('/addProduct/get-all',{method:"GET",headers:{'Authorization':`Bearer ${token}`}});
+        if (!response.ok) {
+            throw new Error('failed to fetch product data');
+        }
+        const products=await response.json();
+        const tbody=document.querySelector('tbody');
+
+        tbody.innerHTML='';
+
+        products.forEach(product=>{
+            const row=document.createElement('tr');
+            row.innerHTML=`
+                <td>${product.product_id}</td>
+                <td>${product.product_name}</td>
+                <td>${product.product_price}</td>
+                
+            `;
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+ }
+ window.addEventListener('DOMContentLoaded',fetchPrducts);
+
+
+
+ document.getElementById('update-product-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const token = localStorage.getItem("adminToken");
+
+    if (!token) {
+        alert("Access denied. Please log in as an admin.");
+        window.location.href = "../admin.html";
+        return;
+    }
+
+    // Collect selected sizes from checkboxes
+    const sizes = [];
+    document.querySelectorAll('#update-product-form input[name="product_sizes[]"]:checked').forEach((checkbox) => {
+        sizes.push(checkbox.value);
+    });
+
+    // Add sizes to FormData
+    formData.append('sizes', JSON.stringify(sizes));
+
+    try {
+        const response = await fetch('/addProduct/update', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+                // Don't set Content-Type for FormData
+            },
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Product updated successfully');
+            form.reset();
+            document.getElementById('image-preview-update').style.display = 'none';
+            fetchPrducts();
+        } else {
+            alert('Error: ' + (result.message || 'Failed to update product'));
+        }
+    } catch (error) {
+        console.error('Error updating product:', error);
+        alert('Error updating product: ' + error.message);
+    }
+});
+
+
+document.getElementById('add-product-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const token = localStorage.getItem("adminToken");
+
+    if (!token) {
+        alert("Access denied. Please log in as an admin.");
+        window.location.href = "../admin.html";
+        return;
+    }
+
+    // Collect multiple selected sizes from checkboxes
+    const sizes = [];
+    document.querySelectorAll('#add-product-form input[name="product_sizes[]"]:checked').forEach((checkbox) => {
+        sizes.push(checkbox.value);
+    });
+
+    // Add sizes to FormData
+    formData.append('sizes', JSON.stringify(sizes));
+
+    try {
+        const response = await fetch('/addProduct/add', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+                // Don't set Content-Type for FormData - browser will set it automatically with boundary
+            },
+            body: formData
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+            alert('Product added successfully');
+            form.reset();
+            document.getElementById('image-preview').style.display = 'none';
+            fetchPrducts();
+        } else {
+            alert('Error: ' + (result.message || 'Failed to add product'));
+        }
+    } catch (error) {
+        console.error('Error adding product:', error);
+        alert('Error adding product: ' + error.message);
+    }
+});
+
+document.getElementById('delete-product-form').addEventListener('submit',async (event)=>{
+event.preventDefault();
+const form=event.target;
+const formData=new FormData(form);
+const data={
+    id:formData.get('id')
+};
+const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    alert("Access denied. Please log in as an admin.");
+    window.location.href = "../admin.html"; // Redirect to login page
+  }
+try{
+    const response=await fetch('/addProduct/delete',{
+        method:'POST',
+        headers:{
+            Authorization:`Bearer ${token}`,
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+    });
+    if (response.ok) {
+        alert('Operation successful');
+    }
+    if (!response.ok) {
+        throw new Error('failed to delete product');
+    }
+    form.reset();
+    fetchPrducts();
+} catch (error) {
+    console.error('Error deleting product:', error);
+}
+});
+
+    </script>
+    
+    <!-- Image Preview Scripts -->
+    <script>
+        // Image preview for add form
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('image-preview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+        
+        // Image preview for update form
+        document.getElementById('image-upload-update').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('image-preview-update');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
